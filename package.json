@@ -29,20 +29,12 @@
   },
   "license": "MIT",
   "scripts": {
-    "start": "dumi dev",
-    "docs:build": "dumi build",
-    "docs:deploy": "gh-pages -d .doc",
-    "compile": "father build && lessc assets/index.less assets/index.css",
-    "gh-pages": "npm run docs:build && father doc deploy",
-    "prepublishOnly": "npm run compile && np --yolo --no-publish && npm run gh-pages",
-    "lint": "eslint src/ --ext .ts,.tsx,.jsx,.js,.md",
-    "prettier": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
-    "pretty-quick": "pretty-quick",
-    "test": "father test",
-    "coverage": "father test --coverage"
+    "start": "dumi dev"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.3.2",
     "@babel/runtime": "^7.11.1",
+    "antd": "^5.1.2",
     "classnames": "^2.2.1"
   },
   "devDependencies": {

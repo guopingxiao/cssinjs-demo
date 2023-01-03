@@ -1,6 +1,9 @@
 import React from 'react';
 import classNames from 'classnames';
-import Column, { FooterColumn } from './column';
+import type { FooterColumn } from './column';
+import Column from './column';
+import type { GlobalToken } from 'antd/es/theme/interface';
+import { useStyle } from './useStyle';
 
 export interface FooterProps {
   prefixCls?: string;
@@ -12,6 +15,16 @@ export interface FooterProps {
   style?: React.CSSProperties;
   backgroundColor?: string;
   columnLayout?: 'space-around' | 'space-between';
+}
+
+export const genFooterStyle = (token: GlobalToken & {componentCls: string}) => {
+
+  const { componentCls } = token
+  return {
+    [componentCls]: {
+      paddingLeft: token.padding
+    }
+  }
 }
 
 const Footer: React.FC<FooterProps> = ({
@@ -26,12 +39,14 @@ const Footer: React.FC<FooterProps> = ({
   theme = 'dark',
   ...restProps
 }) => {
+  // @ts-ignore
+  const {wrapSSR, hashId } = useStyle(prefixCls, genFooterStyle)
   const footerClassName = classNames(`${prefixCls}`, className, {
     [`${prefixCls}-${theme}`]: !!theme,
-  });
+  }, hashId);
   const shouldWrap =
     typeof maxColumnsPerRow === 'number' && maxColumnsPerRow > 0;
-  return (
+  return wrapSSR(
     <footer
       {...restProps}
       className={footerClassName}
